@@ -1,14 +1,14 @@
 {
-  "name": "anmol",
+  "name": "dong4j",
   "version": "4.0.0",
-  "description": "A personal card for Anmol Pratap Singh (@anmol098)",
+  "description": "A personal card for dong4j(@dong4j)",
   "main": "card.js",
   "bin": {
-    "anmol": "./card.js"
+    "dong4j": "./card.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anmol098/npx_card.git"
+    "url": "git+https://github.com/dong4j/npx-card.git"
   },
   "scripts": {
     "test": "node card.js",
@@ -32,6 +32,6 @@
     "npx card",
     "business card"
   ],
-  "author": "Anmol Singh <hi@anmolsingh.me> (https://anmolsingh.me/)",
+  "author": "dong4j <dong4j@gmail.com> (https://dong4j.github.io/)",
   "license": "ISC"
 }

@@ -25,7 +25,7 @@ const questions = [
             {
                 name: `Send me an ${chalk.green.bold("email")}?`,
                 value: () => {
-                    open("mailto:hi@anmolsingh.me");
+                    open("mailto:dong4j@gmail.com");
                     console.log("\nDone, see you soon at inbox.\n");
                 }
             },
@@ -37,22 +37,23 @@ const questions = [
                         text: ' Downloading Resume',
                         spinner: cliSpinners.material,
                     }).start();
-                    let pipe = request('https://anmolsingh.me/api/resume').pipe(fs.createWriteStream('./anmol-resume.html'));
+                    // todo
+                    let pipe = request('https://resume.dong4j.ink:1024').pipe(fs.createWriteStream('./dong4j-resume.html'));
                     pipe.on("finish", function () {
-                        let downloadPath = path.join(process.cwd(), 'anmol-resume.html')
+                        let downloadPath = path.join(process.cwd(), 'dong4j-resume.html')
                         console.log(`\nResume Downloaded at ${downloadPath} \n`);
                         open(downloadPath)
                         loader.stop();
                     });
                 }
             },
-            {
-                name: `Schedule a ${chalk.redBright.bold("Meeting")}?`,
-                value: () => {
-                    open('https://calendly.com/anmol098/30min');
-                    console.log("\n See you at the meeting \n");
-                }
-            },
+            // {
+            //     name: `Schedule a ${chalk.redBright.bold("Meeting")}?`,
+            //     value: () => {
+            //         open('https://calendly.com/anmol098/30min');
+            //         console.log("\n See you at the meeting \n");
+            //     }
+            // },
             {
                 name: "Just quit.",
                 value: () => {
@@ -64,16 +65,16 @@ const questions = [
 ];
 
 const data = {
-    name: chalk.bold.green("             Anmol Pratap Singh"),
-    handle: chalk.white("@anmol098"),
+    name: chalk.bold.green("              Hi there 👋，I'm dong4j"),
+    handle: chalk.white("@dong4j"),
     work: `${chalk.white("Lead Software Engineer at")} ${chalk
         .hex("#2b82b2")
         .bold("FootLoose Labs")}`,
-    twitter: chalk.gray("https://twitter.com/") + chalk.cyan("misteranmol"),
-    github: chalk.gray("https://github.com/") + chalk.green("anmol098"),
-    linkedin: chalk.gray("https://linkedin.com/in/") + chalk.blue("anmol098"),
-    web: chalk.cyan("https://anmolsingh.me"),
-    npx: chalk.red("npx") + " " + chalk.white("anmol"),
+    twitter: chalk.gray("https://twitter.com/") + chalk.cyan("dong4j"),
+    github: chalk.gray("https://github.com/") + chalk.green("dong4j"),
+    linkedin: chalk.gray("https://linkedin.com/in/") + chalk.blue("dong4j"),
+    web: chalk.cyan("https://resume.dong4j.ink:1024"),
+    npx: chalk.red("npx") + " " + chalk.white("dong4j"),
 
     labelWork: chalk.white.bold("       Work:"),
     labelTwitter: chalk.white.bold("    Twitter:"),
