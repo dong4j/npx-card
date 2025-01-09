@@ -11,4 +11,4 @@ COMMIT_MESSAGE=${1:-"更新"}
 # 执行 Git 操作
 git add .
 git commit -m "$COMMIT_MESSAGE"
-git push -u origin main
+git push -u origin master
