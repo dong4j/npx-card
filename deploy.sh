@@ -5,32 +5,72 @@ SCRIPT_DIR=$(dirname "$(realpath "$0")")
 # 切换到 Makefile 所在的工作目录 (即脚本所在目录的父目录)
 cd "$SCRIPT_DIR" || exit 1
 
-# 检查参数
-if [ $# -lt 2 ]; then
-  echo "Usage: $0 <REMOTE_HOST> <REMOTE_DIR>"
-  echo "Example: $0 m920x /path/to/remote/directory"
-  exit 1
-fi
+# 发布脚本
+# 功能: 自动检查、更新版本号并发布 npm 包
 
-# 从参数获取 REMOTE_HOST 和 REMOTE_DIR
-REMOTE_HOST="$1"
-REMOTE_DIR="$2"
+# 检查是否在 npm 登录状态
+function check_npm_login {
+    echo "检查 npm 登录状态..."
+    npm whoami > /dev/null 2>&1
+    if [ $? -ne 0 ]; then
+        echo "未登录 npm，请先登录！"
+        npm login
+        if [ $? -ne 0 ]; then
+            echo "npm 登录失败，请检查账号信息。"
+            exit 1
+        fi
+    else
+        echo "已登录 npm。"
+    fi
+}
 
-# 定义本地目录
-LOCAL_DIR="public" # 脚本同级目录下的 public
+# 检查 package.json 是否存在
+function check_package_json {
+    if [ ! -f "package.json" ]; then
+        echo "未找到 package.json 文件，请确认当前目录是 npm 包的根目录。"
+        exit 1
+    fi
+}
 
-# 上传文件到远程并覆盖
-echo "正在上传 public 目录下的所有文件到 $REMOTE_HOST:$REMOTE_DIR..."
-rsync -azqhP --delete \
-  --exclude '.DS_Store' \
-  --exclude '._*' \
-  --exclude '__MACOSX' \
-  "$LOCAL_DIR/" "$REMOTE_HOST:$REMOTE_DIR" | tee /dev/null
+# 更新版本号
+# •	patch：只增加最后一位。例如：1.2.3 -> 1.2.4
+# •	minor：增加中间一位，后面的数字归零。例如：1.2.3 -> 1.3.0
+# •	major：增加第一位，后面的数字归零。例如：1.2.3 -> 2.0.0
+function update_version {
+    echo "请输入要发布的版本类型 (patch, minor, major):"
+    read VERSION_TYPE
 
-# 检查上传是否成功
-if [ $? -eq 0 ]; then
-  echo "文件上传成功！"
-else
-  echo "文件上传失败，请检查连接或权限配置。"
-  exit 1
-fi
+    case "$VERSION_TYPE" in
+        patch|minor|major)
+            npm version "$VERSION_TYPE" --no-git-tag-version
+            ;;
+        *)
+            echo "无效的版本类型，请输入 patch, minor 或 major。"
+            exit 1
+            ;;
+    esac
+}
+
+# 发布到 npm
+function publish_package {
+    echo "发布 npm 包..."
+    npm publish
+    if [ $? -ne 0 ]; then
+        echo "发布失败，请检查 npm 配置和网络连接。"
+        exit 1
+    fi
+    echo "发布成功！"
+}
+
+# 主程序
+function main {
+    echo "===== 开始发布 npm 包 ====="
+    check_package_json
+    check_npm_login
+    update_version
+    publish_package
+    echo "===== 发布完成 ====="
+}
+
+# 执行主程序
+main
