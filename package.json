@@ -1,6 +1,6 @@
 {
   "name": "dong4j",
-  "version": "4.0.1",
+  "version": "4.1.0",
   "description": "A personal card for dong4j(@dong4j)",
   "main": "card.js",
   "bin": {
@@ -24,6 +24,7 @@
     "open": "^7.0.4",
     "openai": "^4.78.1",
     "ora": "^5.1.0",
+    "qrcode-terminal": "^0.12.0",
     "request": "^2.88.2"
   },
   "keywords": [

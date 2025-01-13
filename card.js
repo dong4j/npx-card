@@ -17,6 +17,7 @@ const DinoGame = require('./lib/game/dino');
 const AIChat = require('./lib/ai/chat');
 const basic_data = require('./lib/core/data');
 const banner = require('./lib/cli/banner');
+const qrcode = require('qrcode-terminal');
 
 class CardCLI {
     constructor() {
@@ -30,11 +31,15 @@ class CardCLI {
                 value: 'resume'
             },
             {
+                name: `Contact me via ${chalk.cyanBright.bold('WeChat')} 📱?`,
+                value: 'QR'
+            },
+            {
                 name: `Play ${chalk.cyanBright.bold('Dino Runner')} Game 🦖?`,
                 value: 'game'
             },
             {
-                name: `Chat with ${chalk.cyanBright.bold('AI Assistant')} 🗣️?`,
+                name: `Chat with ${chalk.cyanBright.bold('AI Assistant')} 🤖?`,
                 value: 'chat'
             },
             {
@@ -84,6 +89,11 @@ class CardCLI {
         await chat.start();
     }
 
+    async startQR() {
+        qrcode.generate('https://u.wechat.com/MAFRLF2g62RSwOxpPrw8dFo', { small: true });
+        Logger.info('\nDone, Scan the QR code to add me as a friend.\n');
+    }
+
     async showMenu() {
         const { action } = await inquirer.prompt([
             {
@@ -107,8 +117,11 @@ class CardCLI {
             case 'chat':
                 await this.startChat();
                 break;
+            case 'QR':
+                await this.startQR();
+                break;
             case 'exit':
-                Logger.highlight('Hasta la vista.\n');
+                Logger.highlight('Hasta la vista. 👋👋👋\n');
                 return false;
         }
 
