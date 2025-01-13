@@ -13,6 +13,7 @@ const request = require('request');
 const path = require('path');
 const ora = require('ora');
 const cliSpinners = require('cli-spinners');
+const DinoGame = require('./lib/dinoGame');
 clear();
 
 const prompt = inquirer.createPromptModule();
@@ -47,13 +48,21 @@ const questions = [
                     });
                 }
             },
-            // {
-            //     name: `Schedule a ${chalk.redBright.bold("Meeting")}?`,
-            //     value: () => {
-            //         open('https://calendly.com/anmol098/30min');
-            //         console.log("\n See you at the meeting \n");
-            //     }
-            // },
+            {
+                name: `Play ${chalk.cyanBright.bold("Dino Runner")} Game 🦖`,
+                value: async () => {
+                    console.log(chalk.cyanBright.bold("\n🎮 Welcome to Dino Runner! 🎮"));
+                    console.log(chalk.yellow("Jump over the cacti and survive as long as you can!"));
+                    console.log(chalk.gray("Loading game..."));
+                    
+                    const game = new DinoGame();
+                    await game.start();
+                    
+                    // After game over, return to menu
+                    console.log(chalk.gray("\nPress any key to return to menu..."));
+                    await new Promise(resolve => process.stdin.once('data', resolve));
+                }
+            },
             {
                 name: "Just quit.",
                 value: () => {
@@ -63,7 +72,6 @@ const questions = [
         ]
     }
 ];
-
 
 info()
 
