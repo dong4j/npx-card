@@ -17,38 +17,38 @@ const DinoGame = require("./lib/game/dino");
 const AIChat = require("./lib/ai/chat");
 const basic_data = require("./lib/core/data");
 const banner = require("./lib/cli/banner");
-const qrcode = require("qrcode-terminal");
-var GitHubStats = require("github-stats");
+const WechatQRCode = require("./lib/wechat/qrcode");
+const Stats = require("./lib/github/stats");
 
 class CardCLI {
   constructor() {
     this.menuChoices = [
       {
-        name: `Send me an ${chalk.green.bold("email")}?`,
+        name: `1. Send me an ${chalk.green.bold("email")}?`,
         value: "email",
       },
       {
-        name: `Download my ${chalk.magentaBright.bold("Resume")}?`,
+        name: `2. Download my ${chalk.magentaBright.bold("Resume")}?`,
         value: "resume",
       },
       {
-        name: `Contact me via ${chalk.cyanBright.bold("WeChat")} 📱`,
+        name: `3. Contact me via ${chalk.cyanBright.bold("WeChat")} 📱`,
         value: "QR",
       },
       {
-        name: `My ${chalk.cyanBright.bold("Github")} Stats 〽️`,
+        name: `4. Show my ${chalk.cyanBright.bold("Github")} Stats 〽️`,
         value: "github",
       },
       {
-        name: `Play ${chalk.cyanBright.bold("Dino Runner")} Game 🦖`,
+        name: `5. Play ${chalk.cyanBright.bold("Dino Runner")} Game 🦖`,
         value: "game",
       },
       {
-        name: `Chat with ${chalk.cyanBright.bold("AI Assistant")} 🤖`,
+        name: `6. Chat with ${chalk.cyanBright.bold("AI Assistant")} 🤖`,
         value: "chat",
       },
       {
-        name: "Just quit. 👋",
+        name: "7. Just quit. 👋",
         value: "exit",
       },
     ];
@@ -99,23 +99,13 @@ class CardCLI {
   }
 
   async startQR() {
-    qrcode.generate("https://u.wechat.com/MAFRLF2g62RSwOxpPrw8dFo", {
-      small: true,
-    });
-    Logger.info("\nDone, Scan the QR code to add me as a friend.\n");
+    const qrcode = new WechatQRCode();
+    await qrcode.display();
   }
 
   async startGithubStats() {
-    // todo 阻塞直到返回数据
-    var stats = new GitHubStats({
-      user: "dong4j",
-      s_user: true,
-    });
-
-    // Stringify everything
-    stats.toString(function (err, output, warns) {
-      console.log(err || output);
-    });
+    const stats = new Stats();
+    await stats.display();
   }
 
   async showMenu() {
