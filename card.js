@@ -32,19 +32,19 @@ class CardCLI {
         value: "resume",
       },
       {
-        name: `Contact me via ${chalk.cyanBright.bold("WeChat")} 📱?`,
+        name: `Contact me via ${chalk.cyanBright.bold("WeChat")} 📱`,
         value: "QR",
       },
       {
-        name: `github ${chalk.cyanBright.bold("WeChat")} 📱?`,
+        name: `My ${chalk.cyanBright.bold("Github")} Stats 〽️`,
         value: "github",
       },
       {
-        name: `Play ${chalk.cyanBright.bold("Dino Runner")} Game 🦖?`,
+        name: `Play ${chalk.cyanBright.bold("Dino Runner")} Game 🦖`,
         value: "game",
       },
       {
-        name: `Chat with ${chalk.cyanBright.bold("AI Assistant")} 🤖?`,
+        name: `Chat with ${chalk.cyanBright.bold("AI Assistant")} 🤖`,
         value: "chat",
       },
       {
@@ -106,7 +106,7 @@ class CardCLI {
   }
 
   async startGithubStats() {
-    // Create the GitHubStats instance
+    // todo 阻塞直到返回数据
     var stats = new GitHubStats({
       user: "dong4j",
       s_user: true,
