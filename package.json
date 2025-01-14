@@ -1,6 +1,6 @@
 {
   "name": "dong4j",
-  "version": "4.2.3",
+  "version": "4.3.0",
   "description": "A personal card for dong4j(@dong4j)",
   "main": "card.js",
   "bin": {
