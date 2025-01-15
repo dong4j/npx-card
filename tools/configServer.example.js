@@ -72,7 +72,9 @@ app.post('/api/auth', (req, res) => {
 // 配置端点 - 添加认证中间件
 app.get('/api/config', authenticateToken, (req, res) => {
     res.json({
-        encryptedConfig: encryptedConfig
+        encryptedConfig: encryptedConfig,
+        configUrl: process.env.CONFIG_URL,
+        authUrl: process.env.AUTH_URL,
     });
 });
 

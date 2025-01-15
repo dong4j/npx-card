@@ -25,11 +25,11 @@ if (!config.apiKey || !config.baseUrl || !config.model) {
 const encryptedConfig = Buffer.from(JSON.stringify(config)).toString('base64');
 
 // 生成配置文件内容
-const configFileContent = `// 这里的配置是加密后的字符串
+const configFileContent = `
 module.exports = {
     encryptedConfig: '${encryptedConfig}',
-    authUrl: 'http://localhost:${process.env.CONFIG_SERVER_PORT || 3000}/api/auth'
-    configUrl: 'http://localhost:${process.env.CONFIG_SERVER_PORT || 3000}/api/config'
+    configUrl: '${process.env.CONFIG_URL}',
+    authUrl: '${process.env.AUTH_URL}'
 };`;
 
 // 写入配置文件
