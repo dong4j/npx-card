@@ -57,7 +57,7 @@ app.all("*", (req, res, next) => {
 });
 
 // 认证路由
-app.post('/v1/auth', (req, res) => {
+app.post('/api/auth', (req, res) => {
     const token = generateToken();
     validTokens.add(token);
     
@@ -70,7 +70,7 @@ app.post('/v1/auth', (req, res) => {
 });
 
 // 配置端点 - 添加认证中间件
-app.get('/v1/llm', authenticateToken, (req, res) => {
+app.get('/api/config', authenticateToken, (req, res) => {
     res.json({
         encryptedConfig: encryptedConfig
     });
@@ -78,6 +78,6 @@ app.get('/v1/llm', authenticateToken, (req, res) => {
 
 app.listen(port, '0.0.0.0', () => {
     console.log(`Config server running at http://localhost:${port}`);
-    console.log(`Auth endpoint: http://localhost:${port}/v1/auth`);
-    console.log(`Config endpoint: http://localhost:${port}/v1/llm`);
+    console.log(`Auth endpoint: http://localhost:${port}/api/auth`);
+    console.log(`Config endpoint: http://localhost:${port}/api/config`);
 });

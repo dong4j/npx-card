@@ -2,7 +2,8 @@ require('dotenv').config();
 const fetch = require('node-fetch');
 
 // 配置服务器地址
-const BASE_URL = `http://localhost:${process.env.CONFIG_SERVER_PORT || 3000}`;
+// const BASE_URL = `http://localhost:${process.env.CONFIG_SERVER_PORT || 3000}`;
+const BASE_URL = `https://oneapi.dong4j.ink:1024`;
 
 // 测试认证和配置获取流程
 async function testAuthAndConfig() {
@@ -11,7 +12,7 @@ async function testAuthAndConfig() {
         
         // 1. 测试认证接口
         console.log('\n1. 测试获取 token...');
-        const authResponse = await fetch(`${BASE_URL}/v1/auth`, {
+        const authResponse = await fetch(`${BASE_URL}/api/auth`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -28,7 +29,7 @@ async function testAuthAndConfig() {
         
         // 2. 测试无 token 访问配置
         console.log('\n2. 测试无 token 访问配置...');
-        const unauthorizedResponse = await fetch(`${BASE_URL}/v1/llm`);
+        const unauthorizedResponse = await fetch(`${BASE_URL}/api/config`);
         console.log('状态码:', unauthorizedResponse.status);
         if (unauthorizedResponse.status === 401) {
             console.log('✅ 无 token 访问被正确拒绝');
@@ -38,7 +39,7 @@ async function testAuthAndConfig() {
         
         // 3. 测试使用 token 获取配置
         console.log('\n3. 测试使用 token 获取配置...');
-        const configResponse = await fetch(`${BASE_URL}/v1/llm`, {
+        const configResponse = await fetch(`${BASE_URL}/api/config`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -56,7 +57,7 @@ async function testAuthAndConfig() {
         console.log(`等待 ${expiresIn / 1000} 秒后继续测试...`);
         await new Promise(resolve => setTimeout(resolve, expiresIn + 1000)); // token有效期 + 1秒
         
-        const expiredResponse = await fetch(`${BASE_URL}/v1/llm`, {
+        const expiredResponse = await fetch(`${BASE_URL}/api/config`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
