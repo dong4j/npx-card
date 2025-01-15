@@ -28,7 +28,8 @@ const encryptedConfig = Buffer.from(JSON.stringify(config)).toString('base64');
 const configFileContent = `// 这里的配置是加密后的字符串
 module.exports = {
     encryptedConfig: '${encryptedConfig}',
-    configUrl: 'http://localhost:${process.env.CONFIG_SERVER_PORT || 3000}/v1/config'
+    authUrl: 'http://localhost:${process.env.CONFIG_SERVER_PORT || 3000}/v1/auth'
+    configUrl: 'http://localhost:${process.env.CONFIG_SERVER_PORT || 3000}/v1/llm'
 };`;
 
 // 写入配置文件
