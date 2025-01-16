@@ -10,7 +10,7 @@ I spent a non-trivial amount of effort building and designing this iteration of 
 
 The final output might look something like this:
 
-![image](https://github.com/anmol098/npx_card/blob/master/demo.gif)
+<script src="https://asciinema.org/a/499u4U32WU4HnMxGpM5hF8dq0.js" id="asciicast-499u4U32WU4HnMxGpM5hF8dq0" async="true"></script>
 
 ## STEPS TO CREATE YOUR OWN
 
