@@ -6,19 +6,15 @@ const inquirer = require("inquirer");
 const chalk = require("chalk");
 const clear = require("clear");
 const open = require("open");
-const fs = require("fs");
-const request = require("request");
-const path = require("path");
-const ora = require("ora");
-const cliSpinners = require("cli-spinners");
-
 const Logger = require("./lib/utils/logger");
 const DinoGame = require("./lib/game/dino");
 const AIChat = require("./lib/ai/chat");
 const basic_data = require("./lib/core/data");
 const banner = require("./lib/cli/banner");
 const WechatQRCode = require("./lib/wechat/qrcode");
-const Stats = require("./lib/github/stats");
+const Stats = require("./lib/github/index");
+const RSS = require("./lib/rss/index");
+const Resume = require("./lib/resume/index");
 
 class CardCLI {
   constructor() {
@@ -26,61 +22,48 @@ class CardCLI {
       {
         name: `1. Send me an ${chalk.green.bold("email")}?`,
         value: "email",
+        short: "Send email",
       },
       {
         name: `2. Download my ${chalk.magentaBright.bold("Resume")}?`,
         value: "resume",
+        short: "Download resume",
       },
       {
         name: `3. Contact me via ${chalk.cyanBright.bold("WeChat")} 📱`,
         value: "QR",
+        short: "Show QR",
       },
       {
         name: `4. Show my ${chalk.cyanBright.bold("Github")} Stats 〽️`,
         value: "github",
+        short: "Show Github Stats",
       },
       {
         name: `5. Play ${chalk.cyanBright.bold("Dino Runner")} Game 🦖`,
         value: "game",
+        short: "Play game",
       },
       {
         name: `6. Chat with ${chalk.cyanBright.bold("AI Assistant")} 🤖`,
         value: "chat",
+        short: "AI Assistant",
       },
       {
-        name: "7. Just quit. 👋",
+        name: `7. Show my ${chalk.cyanBright.bold("Latest blog")} 💥`,
+        value: "rss",
+        short: "Show RSS",
+      },
+      {
+        name: "Just quit. 👋",
         value: "exit",
       },
     ];
   }
 
   async downloadResume() {
-    const loader = ora({
-      text: " Downloading Resume",
-      spinner: cliSpinners.material,
-    }).start();
-
-    return new Promise((resolve, reject) => {
-      const pipe = request(basic_data.resume).pipe(
-        fs.createWriteStream(basic_data.name + "-resume.html")
-      );
-
-      pipe.on("finish", () => {
-        const downloadPath = path.join(
-          process.cwd(),
-          basic_data.name + "-resume.html"
-        );
-        Logger.info(`\nResume Downloaded at ${downloadPath} \n`);
-        open(downloadPath);
-        loader.stop();
-        resolve();
-      });
-
-      pipe.on("error", (err) => {
-        loader.stop();
-        reject(err);
-      });
-    });
+    const resume = new Resume();
+    await resume.download();
   }
 
   async sendEmail() {
@@ -108,12 +91,19 @@ class CardCLI {
     await stats.display();
   }
 
+  async startRss() {
+    const rss = new RSS();
+    await rss.display();
+  }
+
   async showMenu() {
     const { action } = await inquirer.prompt([
       {
         type: "list",
         name: "action",
         message: "What would you like to do?",
+        // https://github.com/th0r/inquirer-sortable-checkbox?tab=readme-ov-file
+        pageSize: 10,
         choices: this.menuChoices,
       },
     ]);
@@ -136,6 +126,9 @@ class CardCLI {
         break;
       case "github":
         await this.startGithubStats();
+        break;
+      case "rss":
+        await this.startRss();
         break;
       case "exit":
         Logger.highlight("Hasta la vista. 👋👋👋\n");

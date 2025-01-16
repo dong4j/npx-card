@@ -1,6 +1,6 @@
 {
   "name": "dong4j",
-  "version": "4.4.0",
+  "version": "4.5.0",
   "description": "A personal card for dong4j(@dong4j)",
   "main": "card.js",
   "bin": {
@@ -15,6 +15,7 @@
     "pub": "npm version major & npm publish"
   },
   "dependencies": {
+    "@rowanmanning/feed-parser": "^1.1.0",
     "boxen": "^4.2.0",
     "chalk": "^4.1.0",
     "clear": "^0.1.0",
