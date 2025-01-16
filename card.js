@@ -5,7 +5,6 @@
 const inquirer = require("inquirer");
 const chalk = require("chalk");
 const clear = require("clear");
-const open = require("open");
 const Logger = require("./lib/utils/logger");
 const DinoGame = require("./lib/game/dino");
 const AIChat = require("./lib/ai/chat");
@@ -67,7 +66,8 @@ class CardCLI {
   }
 
   async sendEmail() {
-    await open(basic_data.email);
+    const openModule = await import("open");
+    await openModule.default(basic_data.email);
     Logger.info("\nDone, see you soon at inbox.\n");
   }
 
