@@ -1,10 +1,10 @@
 {
   "name": "dong4j",
-  "version": "4.5.7",
+  "version": "4.5.10",
   "description": "A personal card for dong4j(@dong4j)",
   "main": "cli.js",
   "bin": {
-    "dong4j": "./cli.js"
+    "dong4j": "cli.js"
   },
   "repository": {
     "type": "git",
@@ -13,11 +13,6 @@
   "scripts": {
     "test": "node cli.js",
     "pub": "npm version major & npm publish"
-  },
-  "engine-strict": false,
-  "engines": {
-    "node": ">=18.0.0 <23.0.0",
-    "npm": ">=8.0.0"
   },
   "dependencies": {
     "@rowanmanning/feed-parser": "^1.1.0",

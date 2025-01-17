@@ -33,12 +33,15 @@ function check_package_json {
 }
 
 # 更新版本号
-# •	patch：只增加最后一位。例如：1.2.3 -> 1.2.4
-# •	minor：增加中间一位，后面的数字归零。例如：1.2.3 -> 1.3.0
-# •	major：增加第一位，后面的数字归零。例如：1.2.3 -> 2.0.0
+# • patch：只增加最后一位。例如：1.2.3 -> 1.2.4
+# • minor：增加中间一位，后面的数字归零。例如：1.2.3 -> 1.3.0
+# • major：增加第一位，后面的数字归零。例如：1.2.3 -> 2.0.0
 function update_version {
-    echo "请输入要发布的版本类型 (patch, minor, major):"
-    read VERSION_TYPE
+    echo "请输入要发布的版本类型 (patch, minor, major) [默认: patch]:"
+    read -r VERSION_TYPE
+
+    # 如果用户直接按回车，使用默认值 "patch"
+    VERSION_TYPE=${VERSION_TYPE:-patch}
 
     case "$VERSION_TYPE" in
         patch|minor|major)
