@@ -2,16 +2,16 @@
   "name": "dong4j",
   "version": "4.5.6",
   "description": "A personal card for dong4j(@dong4j)",
-  "main": "card.js",
+  "main": "cli.js",
   "bin": {
-    "dong4j": "./card.js"
+    "dong4j": "./cli.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dong4j/npx-card.git"
   },
   "scripts": {
-    "test": "node card.js",
+    "test": "node cli.js",
     "pub": "npm version major & npm publish"
   },
   "dependencies": {
