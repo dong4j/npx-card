@@ -1,0 +1,47 @@
+{
+  "name": "dong4j",
+  "version": "4.5.10",
+  "description": "A personal card for dong4j(@dong4j)",
+  "main": "cli.js",
+  "bin": {
+    "dong4j": "cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dong4j/npx-card.git"
+  },
+  "scripts": {
+    "test": "node cli.js",
+    "pub": "npm version major & npm publish"
+  },
+  "dependencies": {
+    "@rowanmanning/feed-parser": "^1.1.0",
+    "boxen": "^4.2.0",
+    "chalk": "^4.1.0",
+    "clear": "^0.1.0",
+    "cli-spinners": "^2.5.0",
+    "dotenv": "^16.4.7",
+    "github-stats": "^1.3.5",
+    "inquirer": "^7.3.2",
+    "open": "^10.1.0",
+    "openai": "^4.78.1",
+    "ora": "^5.1.0",
+    "portkey-ai": "^1.6.1",
+    "qrcode-terminal": "^0.12.0",
+    "request": "^2.88.2"
+  },
+  "keywords": [
+    "card",
+    "npm",
+    "npm card",
+    "npx",
+    "npx card",
+    "business card"
+  ],
+  "author": "dong4j <dong4j@gmail.com> (https://dong4j.github.io/)",
+  "license": "ISC",
+  "devDependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  }
+}
