@@ -134,6 +134,11 @@ cp .env.example .env
 ```bash
 node card.js
 ```
+6. Auth testing:
+
+```bash
+node test/auth.test.js --config .env
+```
 
 ## Security
 
