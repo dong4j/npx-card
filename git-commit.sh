@@ -11,4 +11,4 @@ COMMIT_MESSAGE=${1:-"Suppression Warning"}
 # 执行 Git 操作
 git add .
 git commit -m "$COMMIT_MESSAGE"
-git push -u origin master
+git push -u origin main
