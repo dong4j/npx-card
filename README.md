@@ -20,8 +20,9 @@ The article written by our friend @jackboberg. I used the same for the reference
 ## Features
 
 - 📧 Direct email contact
-- 📄 Resume download
+- 📄 Resume (opens website)
 - 🦖 Interactive Dino Runner game
+- 💬 Real-time live chat room (single shared room)
 - 🤖 AI Chat Assistant
 - 🎨 Beautiful CLI interface
 
@@ -36,10 +37,32 @@ npx dong4j
 You'll see an interactive menu with several options:
 
 1. Send an email
-2. Download resume
-3. Play Dino Runner game
-4. Chat with AI Assistant
-5. Exit
+2. Open resume site
+3. Contact via WeChat QR
+4. Show Github stats
+5. Play Dino Runner game
+6. Chat with AI Assistant
+7. Join the live chat room
+8. Show latest blog posts
+9. Exit
+
+### Live Chat Room
+
+All `npx dong4j` users share the same room. To enable it:
+
+1. Start the server (locally or on your machine):
+   ```bash
+   CHAT_SERVER_PORT=4173 node tools/liveChatServer.js
+   ```
+2. Set the client endpoint (or rely on defaults):
+   ```bash
+   export CHAT_SERVER_URL=http://localhost:4173
+   ```
+3. Run `npx dong4j` and choose “Join Live Chat Room 💬”.
+
+Notes:
+- Everyone currently joins the single room `lobby`.
+- Type `exit` inside the chat to return to the main menu.
 
 ## AI Chat Configuration
 

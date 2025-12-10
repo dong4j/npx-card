@@ -8,6 +8,7 @@ const clear = require("clear");
 const Logger = require("./lib/utils/logger");
 const DinoGame = require("./lib/game/dino");
 const AIChat = require("./lib/ai/chat");
+const LiveChat = require("./lib/chatroom/client");
 const basic_data = require("./lib/core/data");
 const banner = require("./lib/cli/banner");
 const WechatQRCode = require("./lib/wechat/qrcode");
@@ -24,9 +25,9 @@ class CardCLI {
         short: "Send email",
       },
       {
-        name: `2. Download my ${chalk.magentaBright.bold("Resume")}?`,
+        name: `2. Open my ${chalk.magentaBright.bold("Resume")} 🌐`,
         value: "resume",
-        short: "Download resume",
+        short: "Open resume",
       },
       {
         name: `3. Contact me via ${chalk.cyanBright.bold("WeChat")} 📱`,
@@ -49,7 +50,12 @@ class CardCLI {
         short: "AI Assistant",
       },
       {
-        name: `7. Show my ${chalk.cyanBright.bold("Latest blog")} 💥`,
+        name: `7. Join ${chalk.cyanBright.bold("Live Chat Room")} 💬`,
+        value: "liveChat",
+        short: "Live chat room",
+      },
+      {
+        name: `8. Show my ${chalk.cyanBright.bold("Latest blog")} 💥`,
         value: "rss",
         short: "Show RSS",
       },
@@ -96,6 +102,11 @@ class CardCLI {
     await rss.display();
   }
 
+  async startLiveChat() {
+    const chatRoom = new LiveChat();
+    await chatRoom.start();
+  }
+
   async showMenu() {
     const { action } = await inquirer.prompt([
       {
@@ -129,6 +140,9 @@ class CardCLI {
         break;
       case "rss":
         await this.startRss();
+        break;
+      case "liveChat":
+        await this.startLiveChat();
         break;
       case "exit":
         Logger.highlight("Hasta la vista. 👋👋👋\n");
